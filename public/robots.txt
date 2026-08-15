@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://eletrocl.com.br/sitemap.xml

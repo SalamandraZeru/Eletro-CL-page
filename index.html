@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EletroCL – Assistência Técnica em Passos MG | Ferramentas e Eletrodomésticos</title>
+    <meta name="description" content="Assistência técnica especializada em ferramentas elétricas e eletrodomésticos em Passos, MG. Alegria em fazer consertos!">
+    <link rel="canonical" href="https://eletrocl.com.br/">
+    
+    <!-- Open Graph / Redes Sociais -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://eletrocl.com.br/">
+    <meta property="og:title" content="EletroCL – Assistência Técnica em Passos MG">
+    <meta property="og:description" content="Assistência técnica especializada em ferramentas elétricas e eletrodomésticos em Passos, MG. Alegria em fazer consertos!">
+    <meta property="og:image" content="https://eletrocl.com.br/assets/fachada-1.webp">
+
+    <!-- Schema.org JSON-LD para SEO Local -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "EletroCL",
+      "image": "https://eletrocl.com.br/assets/fachada-1.webp",
+      "description": "Assistência técnica especializada em ferramentas elétricas e eletrodomésticos em Passos, MG.",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "R. do Mercado, 101 - Centro",
+        "addressLocality": "Passos",
+        "addressRegion": "MG",
+        "postalCode": "37900-076",
+        "addressCountry": "BR"
+      },
+      "telephone": "+553530218804",
+      "url": "https://eletrocl.com.br/",
+      "priceRange": "$$",
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          "opens": "08:00",
+          "closes": "18:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Saturday",
+          "opens": "08:00",
+          "closes": "12:00"
+        }
+      ],
+      "sameAs": [
+        "https://www.instagram.com/eletroclpassos/",
+        "https://www.facebook.com/p/Eletro-CL-100063708750768/?locale=pt_BR"
+      ]
+    }
+    </script>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/assets/logo.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Preload Hero Poster -->
+    <link rel="preload" as="image" href="/assets/hero-poster.jpg" fetchpriority="high">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <!-- SECTION: Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="container navbar__container">
+            <a href="#" class="navbar__brand">
+                <img src="/assets/logo.png" alt="Logo EletroCL" class="navbar__logo">
+            </a>
+            
+            <div class="navbar__menu" id="navbar-menu">
+                <ul class="navbar__list">
+                    <li class="navbar__item"><a href="#servicos" class="navbar__link">Serviços</a></li>
+                    <li class="navbar__item"><a href="#marcas" class="navbar__link">Marcas</a></li>
+                    <li class="navbar__item"><a href="#sobre" class="navbar__link">Sobre</a></li>
+                    <li class="navbar__item"><a href="#contato" class="navbar__link">Contato</a></li>
+                </ul>
+                <a href="https://wa.me/5535984487858?text=Olá!%20Gostaria%20de%20solicitar%20um%20orçamento." target="_blank" rel="noopener noreferrer" class="btn btn--primary navbar__cta">
+                    <i class="fa-brands fa-whatsapp"></i> Orçamento
+                </a>
+            </div>
+
+            <button class="navbar__toggle" id="navbar-toggle" aria-label="Abrir menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        <!-- SECTION: Hero -->
+        <section id="hero" class="hero">
+            <video class="hero__video" src="/assets/hero.mp4" autoplay loop muted playsinline poster="/assets/hero-poster.jpg" fetchpriority="high" aria-label="Fundo animado EletroCL"></video>
+            <canvas id="hero__canvas" class="hero__canvas"></canvas>
+            <div class="container hero__container">
+                <div class="hero__content">
+                    <h1 class="hero__title">Seu Equipamento Consertado com Qualidade e Garantia</h1>
+                    <p class="hero__subtitle">Alegria em Fazer Consertos</p>
+                    <div class="hero__actions">
+                        <a href="https://wa.me/5535984487858?text=Olá!%20Gostaria%20de%20solicitar%20um%20orçamento." target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--large">
+                            <i class="fa-brands fa-whatsapp"></i> Solicitar Orçamento
+                        </a>
+                        <a href="#servicos" class="btn btn--secondary btn--large">
+                            Ver Serviços
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: Stats -->
+        <section id="stats" class="stats">
+            <div class="container">
+                <div class="stats__single-line">
+                    <div class="stats__group">
+                        <span class="stats__number" data-target="100000">+0</span>
+                        <span class="stats__label">Equipamentos Consertados</span>
+                    </div>
+                    <span class="stats__divider">•</span>
+                    <div class="stats__group">
+                        <span class="stats__number" data-target="20">+0</span>
+                        <span class="stats__label">Anos de Experiência</span>
+                    </div>
+                    <span class="stats__divider">•</span>
+                    <div class="stats__group">
+                        <span class="stats__number" data-target="100">0%</span>
+                        <span class="stats__label">Garantia</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: Serviços -->
+        <section id="servicos" class="servicos section-padding">
+            <div class="container">
+                <div class="section-header animate-on-scroll">
+                    <h2 class="section-title">Nossos Serviços</h2>
+                    <p class="section-subtitle">Especialistas na manutenção dos seus equipamentos</p>
+                </div>
+                
+                <div class="servicos__grid">
+                    <div class="card card--servico animate-on-scroll">
+                        <div class="card__icon"><i class="fa-solid fa-fan"></i></div>
+                        <h3 class="card__title">Climatizadores & Ventiladores</h3>
+                        <p class="card__desc">Conserto e manutenção para refrescar seu ambiente com eficiência.</p>
+                    </div>
+                    <div class="card card--servico animate-on-scroll">
+                        <div class="card__icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                        <h3 class="card__title">Ferramentas Elétricas</h3>
+                        <p class="card__desc">Especialistas em Makita, Bosch e DeWalt. Potência recuperada.</p>
+                    </div>
+                    <div class="card card--servico animate-on-scroll">
+                        <div class="card__icon"><i class="fa-solid fa-blender"></i></div>
+                        <h3 class="card__title">Eletrodomésticos de Cozinha</h3>
+                        <p class="card__desc">Liquidificadores, batedeiras, fritadeiras e mais. Cozinha sempre pronta.</p>
+                    </div>
+                    <div class="card card--servico animate-on-scroll">
+                        <div class="card__icon"><i class="fa-solid fa-wind"></i></div>
+                        <h3 class="card__title">Equipamentos de Beleza</h3>
+                        <p class="card__desc">Secadores, chapinhas e escovas elétricas funcionando como novos.</p>
+                    </div>
+                    <div class="card card--servico animate-on-scroll">
+                        <div class="card__icon"><i class="fa-solid fa-mug-hot"></i></div>
+                        <h3 class="card__title">Cafeteiras</h3>
+                        <p class="card__desc">Manutenção em cafeteiras expresso e convencionais. Seu café não pode esperar.</p>
+                    </div>
+                    <div class="card card--servico animate-on-scroll">
+                        <div class="card__icon"><i class="fa-solid fa-glass-water"></i></div>
+                        <h3 class="card__title">Bebedouros de Água</h3>
+                        <p class="card__desc">Reparos em sistemas de refrigeração e filtros para sua hidratação.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: Marcas -->
+        <section id="marcas" class="marcas">
+            <div class="marcas__carousel">
+                <div class="marcas__track">
+                    <!-- Duplicated for infinite effect -->
+                    <img src="/assets/makita-logo.png" alt="Makita" class="marcas__img" loading="lazy">
+                    <img src="/assets/bosch-logo.png" alt="Bosch" class="marcas__img" loading="lazy">
+                    <img src="/assets/dewalt-logo.png" alt="DeWalt" class="marcas__img" loading="lazy">
+                    <img src="/assets/walita-logo.png" alt="Walita" class="marcas__img" loading="lazy">
+                    <img src="/assets/britania-logo.png" alt="Britânia" class="marcas__img" loading="lazy">
+                    <img src="/assets/philips-logo.png" alt="Philips" class="marcas__img" loading="lazy">
+                    <img src="/assets/arno-logo.png" alt="Arno" class="marcas__img" loading="lazy">
+                    <!-- Clone -->
+                    <img src="/assets/makita-logo.png" alt="Makita" class="marcas__img" loading="lazy">
+                    <img src="/assets/bosch-logo.png" alt="Bosch" class="marcas__img" loading="lazy">
+                    <img src="/assets/dewalt-logo.png" alt="DeWalt" class="marcas__img" loading="lazy">
+                    <img src="/assets/walita-logo.png" alt="Walita" class="marcas__img" loading="lazy">
+                    <img src="/assets/britania-logo.png" alt="Britânia" class="marcas__img" loading="lazy">
+                    <img src="/assets/philips-logo.png" alt="Philips" class="marcas__img" loading="lazy">
+                    <img src="/assets/arno-logo.png" alt="Arno" class="marcas__img" loading="lazy">
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: Sobre -->
+        <section id="sobre" class="sobre section-padding">
+            <div class="container sobre__container">
+                <div class="sobre__content">
+                    <h2 class="section-title">Sobre a EletroCL</h2>
+                    <p class="sobre__text animate-on-scroll">Localizada no coração de Passos - MG, a EletroCL nasceu da paixão por consertar e restaurar o funcionamento de equipamentos essenciais para o seu dia a dia e trabalho.</p>
+                    <p class="sobre__text animate-on-scroll">Com o lema <strong>"Alegria em Fazer Consertos"</strong>, nossa equipe técnica altamente capacitada garante serviços rápidos, transparentes e com peças de procedência. Do seu liquidificador à sua ferramenta elétrica profissional, cuidamos do seu patrimônio com excelência.</p>
+                    <ul class="sobre__list">
+                        <li><i class="fa-solid fa-check-circle"></i> Atendimento Especializado</li>
+                        <li><i class="fa-solid fa-check-circle"></i> Orçamento Justo e Transparente</li>
+                        <li><i class="fa-solid fa-check-circle"></i> Garantia Comprovada</li>
+                    </ul>
+                </div>
+                <div class="sobre__gallery">
+                    <img data-src="/assets/fachada-1.webp" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="Fachada da EletroCL" class="sobre__img animate-on-scroll sobre__img--1">
+                    <img data-src="/assets/fachada-2.webp" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="EletroCL vista da esquina" class="sobre__img animate-on-scroll sobre__img--2">
+                    <img data-src="/assets/interior.webp" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="Interior e balcão de atendimento" class="sobre__img animate-on-scroll sobre__img--3">
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: Como Funciona -->
+        <section id="como-funciona" class="como-funciona section-padding">
+            <div class="container">
+                <div class="section-header animate-on-scroll">
+                    <h2 class="section-title">Como Funciona</h2>
+                    <p class="section-subtitle">Um processo simples e transparente para você</p>
+                </div>
+                
+                <div class="steps__grid">
+                    <div class="step animate-on-scroll">
+                        <div class="step__number">1</div>
+                        <div class="step__icon"><i class="fa-solid fa-store"></i></div>
+                        <h3 class="step__title">Traga o equipamento</h3>
+                        <p class="step__desc">Visite nossa loja na R. do Mercado, 101 - Centro de Passos.</p>
+                    </div>
+                    <div class="step animate-on-scroll">
+                        <div class="step__number">2</div>
+                        <div class="step__icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+                        <h3 class="step__title">Diagnóstico gratuito</h3>
+                        <p class="step__desc">Avaliamos o problema de forma técnica e rápida.</p>
+                    </div>
+                    <div class="step animate-on-scroll">
+                        <div class="step__number">3</div>
+                        <div class="step__icon"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                        <h3 class="step__title">Orçamento sem compromisso</h3>
+                        <p class="step__desc">Aprovando, iniciamos o conserto imediatamente.</p>
+                    </div>
+                    <div class="step animate-on-scroll">
+                        <div class="step__number">4</div>
+                        <div class="step__icon"><i class="fa-solid fa-handshake"></i></div>
+                        <h3 class="step__title">Entrega com garantia</h3>
+                        <p class="step__desc">Seu aparelho funcionando como novo e garantido.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: Depoimentos -->
+        <section id="depoimentos" class="depoimentos section-padding">
+            <div class="container">
+                <div class="section-header animate-on-scroll">
+                    <h2 class="section-title">O que dizem nossos clientes</h2>
+                    <p class="section-subtitle">A satisfação de quem confia na EletroCL</p>
+                </div>
+                
+                <div class="depoimentos__grid">
+                    <div class="card card--depoimento animate-on-scroll">
+                        <div class="depoimento__stars">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="depoimento__text">"Atendimento excelente. Levei meu liquidificador e uma furadeira e ambos foram consertados super rápido. O preço foi muito justo e me explicaram tudo certinho. Recomendo muito!"</p>
+                        <div class="depoimento__author">
+                            <div class="depoimento__avatar" style="background-color: #27ae60;">MF</div>
+                            <div>
+                                <h4 class="depoimento__name">Maria F.</h4>
+                                <span class="depoimento__role">Cliente local</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card card--depoimento animate-on-scroll">
+                        <div class="depoimento__stars">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="depoimento__text">"Melhor assistência de Passos. Consertaram minha roçadeira que estava parada há meses. Trabalho de primeira linha, super transparente e equipe atenciosa."</p>
+                        <div class="depoimento__author">
+                            <div class="depoimento__avatar" style="background-color: #e67e22;">JS</div>
+                            <div>
+                                <h4 class="depoimento__name">João Silva</h4>
+                                <span class="depoimento__role">Jardineiro</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card card--depoimento animate-on-scroll">
+                        <div class="depoimento__stars">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="depoimento__text">"EletroCL tem excelentes profissionais. Fizeram um milagre no meu micro-ondas e ficou novinho em folha. A experiência deles faz toda a diferença."</p>
+                        <div class="depoimento__author">
+                            <div class="depoimento__avatar" style="background-color: #3498db;">RC</div>
+                            <div>
+                                <h4 class="depoimento__name">Roberto Costa</h4>
+                                <span class="depoimento__role">Cliente local</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: Contato -->
+        <section id="contato" class="contato section-padding">
+            <div class="container contato__container">
+                <div class="contato__info">
+                    <h2 class="section-title section-title--light">Fale Conosco</h2>
+                    <p class="contato__desc">Traga seu equipamento para um diagnóstico ou entre em contato pelo WhatsApp para tirar dúvidas.</p>
+                    
+                    <ul class="contato__list">
+                        <li>
+                            <i class="fa-solid fa-location-dot"></i>
+                            <div>
+                                <strong>Endereço:</strong><br>
+                                R. do Mercado, 101 - Centro<br>Passos - MG, 37900-076
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-phone"></i>
+                            <div>
+                                <strong>Telefone Fixo:</strong><br>
+                                (35) 3021-8804
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-brands fa-whatsapp"></i>
+                            <div>
+                                <strong>WhatsApp:</strong><br>
+                                (35) 98448-7858
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-clock"></i>
+                            <div>
+                                <strong>Horário de Funcionamento:</strong><br>
+                                Seg - Sex: 8h às 18h<br>Sáb: 8h às 12h
+                            </div>
+                        </li>
+                    </ul>
+                    
+                    <a href="https://wa.me/5535984487858?text=Olá!%20Gostaria%20de%20solicitar%20um%20orçamento." target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--large contato__btn">
+                        <i class="fa-brands fa-whatsapp"></i> Chamar no WhatsApp
+                    </a>
+                </div>
+                
+                <div class="contato__map">
+                    <iframe 
+                        src="https://maps.google.com/maps?q=R.%20do%20Mercado,%20101%20-%20Centro,%20Passos%20-%20MG,%2037900-076&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                        width="100%" 
+                        height="100%" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade"
+                        title="Mapa de Localização EletroCL">
+                    </iframe>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- SECTION: Footer -->
+    <footer class="footer">
+        <div class="container footer__container">
+            <div class="footer__brand">
+                <img src="/assets/logo.png" alt="Logo EletroCL" class="footer__logo" loading="lazy">
+                <p class="footer__slogan">Alegria em Fazer Consertos</p>
+            </div>
+            
+            <div class="footer__links">
+                <h4 class="footer__title">Navegação</h4>
+                <ul>
+                    <li><a href="#hero">Início</a></li>
+                    <li><a href="#servicos">Serviços</a></li>
+                    <li><a href="#sobre">Sobre Nós</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer__social">
+                <h4 class="footer__title">Redes Sociais</h4>
+                <div class="social-icons">
+                    <a href="https://www.instagram.com/eletroclpassos/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/p/Eletro-CL-100063708750768/?locale=pt_BR" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer__bottom">
+            <div class="container">
+                <p>&copy; 2024 EletroCL. Todos os direitos reservados. Desenvolvido por Noctem Technology.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SECTION: WhatsApp Flutuante -->
+    <a href="https://wa.me/5535984487858?text=Olá!%20Gostaria%20de%20solicitar%20um%20orçamento." class="fab-whatsapp" target="_blank" rel="noopener noreferrer" aria-label="Fale conosco no WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- SECTION: Bottom Navigation (Mobile) -->
+    <nav class="bottom-nav">
+        <a href="#hero" class="bottom-nav__link">
+            <i class="fa-solid fa-house"></i>
+            <span>Início</span>
+        </a>
+        <a href="#servicos" class="bottom-nav__link">
+            <i class="fa-solid fa-wrench"></i>
+            <span>Serviços</span>
+        </a>
+        <a href="#como-funciona" class="bottom-nav__link">
+            <i class="fa-solid fa-list-check"></i>
+            <span>Etapas</span>
+        </a>
+        <a href="#contato" class="bottom-nav__link">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>Contato</span>
+        </a>
+    </nav>
+
+    <!-- Scripts -->
+    <script type="module" src="/js/main.js"></script>
+</body>
+</html>
