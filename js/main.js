@@ -22,13 +22,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
         menuToggle.setAttribute('aria-expanded', !isExpanded);
         navbarMenu.classList.toggle('active');
+        document.body.classList.toggle('menu-open', navbarMenu.classList.contains('active'));
         
         // Transformar ícone hambúrguer em X
         const icon = menuToggle.querySelector('i');
         if (navbarMenu.classList.contains('active')) {
+            menuToggle.setAttribute('aria-label', 'Fechar menu');
             icon.classList.remove('fa-bars');
             icon.classList.add('fa-times');
         } else {
+            menuToggle.setAttribute('aria-label', 'Abrir menu');
             icon.classList.remove('fa-times');
             icon.classList.add('fa-bars');
         }
@@ -37,6 +40,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (menuToggle && navbarMenu) {
         menuToggle.addEventListener('click', toggleMenu);
     }
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && navbarMenu?.classList.contains('active')) {
+            toggleMenu();
+            menuToggle.focus();
+        }
+    });
 
     // Fechar menu ao clicar em um link
     menuLinks.forEach(link => {
@@ -145,6 +155,9 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('img[data-src]').forEach(img => {
         imgObserver.observe(img);
     });
+
+    const currentYear = document.getElementById('current-year');
+    if (currentYear) currentYear.textContent = new Date().getFullYear();
 
     // ==========================================
     // 6. HERO CANVAS (Partículas)

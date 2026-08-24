@@ -92,7 +92,7 @@
                 </a>
             </div>
 
-            <button class="navbar__toggle" id="navbar-toggle" aria-label="Abrir menu">
+            <button class="navbar__toggle" id="navbar-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="navbar-menu">
                 <i class="fa-solid fa-bars"></i>
             </button>
         </div>
@@ -105,8 +105,9 @@
             <canvas id="hero__canvas" class="hero__canvas"></canvas>
             <div class="container hero__container">
                 <div class="hero__content">
+                    <p class="hero__eyebrow"><span></span> Assistência técnica em Passos — MG</p>
                     <h1 class="hero__title">Seu Equipamento Consertado com Qualidade e Garantia</h1>
-                    <p class="hero__subtitle">Alegria em Fazer Consertos</p>
+                    <p class="hero__subtitle">Diagnóstico transparente, equipe experiente e a alegria de devolver seus equipamentos ao trabalho.</p>
                     <div class="hero__actions">
                         <a href="https://wa.me/5535984487858?text=Olá!%20Gostaria%20de%20solicitar%20um%20orçamento." target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--large">
                             <i class="fa-brands fa-whatsapp"></i> Solicitar Orçamento
@@ -114,6 +115,10 @@
                         <a href="#servicos" class="btn btn--secondary btn--large">
                             Ver Serviços
                         </a>
+                    </div>
+                    <div class="hero__proof" aria-label="Diferenciais da EletroCL">
+                        <span><i class="fa-solid fa-shield-halved"></i> Serviço com garantia</span>
+                        <span><i class="fa-solid fa-bolt"></i> Atendimento especializado</span>
                     </div>
                 </div>
             </div>
@@ -407,7 +412,7 @@
         </div>
         <div class="footer__bottom">
             <div class="container">
-                <p>&copy; 2024 EletroCL. Todos os direitos reservados. Desenvolvido por Noctem Technology.</p>
+                <p>&copy; <span id="current-year">2026</span> EletroCL. Todos os direitos reservados. Desenvolvido por Noctem Technology.</p>
             </div>
         </div>
     </footer>
@@ -418,7 +423,7 @@
     </a>
 
     <!-- SECTION: Bottom Navigation (Mobile) -->
-    <nav class="bottom-nav">
+    <nav class="bottom-nav" aria-label="Navegação rápida no celular">
         <a href="#hero" class="bottom-nav__link">
             <i class="fa-solid fa-house"></i>
             <span>Início</span>
