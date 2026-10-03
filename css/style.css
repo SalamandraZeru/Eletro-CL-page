@@ -286,7 +286,7 @@ template { display: none; }
 
 .depoimentos { background: var(--paper); }
 .depoimentos__grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
-.card--depoimento { position: relative; overflow: hidden; display: flex; min-height: 320px; flex-direction: column; padding: 30px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--white); box-shadow: var(--shadow-sm); transition: transform var(--ease), box-shadow var(--ease); }
+.card--depoimento { position: relative; overflow: hidden; display: flex; min-height: 0; flex-direction: column; padding: 30px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--white); box-shadow: var(--shadow-sm); transition: transform var(--ease), box-shadow var(--ease); }
 .card--depoimento:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
 .depoimento__stars, .google-rating__stars { display: flex; gap: 3px; color: var(--yellow); font-size: 1.05rem; }
 .depoimento__stars { margin-bottom: 22px; }
@@ -300,6 +300,8 @@ template { display: none; }
 .depoimento__avatar { display: grid; width: 44px; height: 44px; flex: 0 0 auto; place-items: center; border-radius: 50%; color: var(--white); font-size: .8rem; font-weight: 800; }
 .depoimento__name { font-size: .92rem; font-weight: 800; }
 .depoimento__role { color: var(--muted); font-size: .78rem; }
+.card--depoimento-featured .depoimento__text { max-width: 860px; color: var(--ink); font-size: clamp(1.02rem, 1.6vw, 1.22rem); font-weight: 600; line-height: 1.65; }
+.card--depoimento-featured .depoimento__quote { font-size: 4.6rem; }
 img.depoimento__avatar { object-fit: cover; background: var(--line); }
 .depoimento__name a { color: inherit; text-decoration: none; }
 .depoimento__name a:hover { text-decoration: underline; }
@@ -399,6 +401,7 @@ body { padding-bottom: 70px; }
   .stats__group { justify-content: center; border-right: 1px solid rgba(255,255,255,.08); border-bottom: 0; }
   .stats__group:last-of-type { border-right: 0; }
   .servicos__grid, .depoimentos__grid { grid-template-columns: repeat(2, 1fr); }
+  .card--depoimento-featured, .card--depoimento:nth-child(4):last-child { grid-column: 1 / -1; }
   .steps__grid { grid-template-columns: repeat(2, 1fr); }
   .footer__container { grid-template-columns: 2fr 1fr 1fr; }
 }
@@ -420,6 +423,7 @@ body { padding-bottom: 70px; }
 
 @media (min-width: 960px) {
   .servicos__grid, .depoimentos__grid { grid-template-columns: repeat(3, 1fr); }
+  .card--depoimento:nth-child(4):last-child { grid-column: auto; }
   .sobre__container, .contato__container { grid-template-columns: .92fr 1.08fr; gap: clamp(60px, 7vw, 100px); }
   .steps__grid { grid-template-columns: repeat(4, 1fr); }
   .steps__line { position: absolute; top: 41px; left: calc((100% - 42px) / 4 - 41px); right: 41px; z-index: 0; display: block; height: 2px; background: rgba(255,255,255,.08); }
@@ -427,8 +431,6 @@ body { padding-bottom: 70px; }
   .steps__grid.is-drawn .steps__line span { animation: drawLine 1.6s var(--ease-out) .3s forwards; }
   .contato__map { min-height: 560px; }
   .sobre__badge { top: 268px; left: -22px; }
-  .depoimentos__grid { display: flex; flex-wrap: wrap; justify-content: center; }
-  .card--depoimento { flex: 0 1 calc((100% - 32px) / 3); }
 }
 
 @media (max-width: 599px) {
