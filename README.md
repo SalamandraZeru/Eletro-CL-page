@@ -57,6 +57,22 @@ Connect the repo and use these settings:
 * Build command: `npm run build`
 * Output directory: `dist`
 
+## Google Reviews (auto-update)
+
+The "O que dizem nossos clientes" section pulls the shop's rating and reviews from Google via a Cloudflare Pages Function (`functions/api/reviews.js` → `GET /api/reviews`). The response is cached at the edge for 6 hours, so new Google reviews show up on the site on their own. If the API isn't configured or fails, the static testimonials in `index.html` are shown instead.
+
+Setup:
+
+1. In Google Cloud, enable **Places API (New)** on a project with billing and create an API key. Restrict it to the Places API (New) only.
+2. Find the shop's Place ID with Google's [Place ID Finder](https://developers.google.com/maps/documentation/places/web-service/place-id).
+3. In Cloudflare Pages → Settings → Variables and Secrets, add `GOOGLE_PLACES_API_KEY` (as a secret) and `GOOGLE_PLACE_ID`, then redeploy.
+
+Notes:
+
+* Google returns at most 5 reviews, picked by Google's "most relevant" order — you can't choose which ones show.
+* Reviews use the "Place Details Enterprise + Atmosphere" SKU (1,000 free calls/month). The 6h cache keeps usage far below that.
+* `vite dev` doesn't run Pages Functions, so locally you'll see the static fallback. Use `npx wrangler pages dev dist` with a `.dev.vars` file to test the real thing.
+
 ## Client Info (Verify before launch)
 
 Make sure these match the actual shop data before going live:

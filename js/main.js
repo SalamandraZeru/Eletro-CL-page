@@ -239,6 +239,99 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
+    // 6.1 AVALIAÇÕES DO GOOGLE (via /api/reviews)
+    // ==========================================
+    // Se a API falhar ou não estiver configurada, os depoimentos estáticos
+    // do HTML continuam aparecendo.
+    const reviewsGrid = document.getElementById('depoimentos-grid');
+    const avatarColors = ['#27ae60', '#e67e22', '#3498db', '#8e44ad', '#c0392b'];
+    const MAX_REVIEW_CHARS = 280;
+
+    const starsHtml = (rating) => {
+        const full = Math.round(rating);
+        return '<i class="fa-solid fa-star"></i>'.repeat(full) + '<i class="fa-regular fa-star"></i>'.repeat(5 - full);
+    };
+
+    const initials = (name) => name.split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0].toUpperCase()).join('');
+
+    const el = (tag, className, text) => {
+        const node = document.createElement(tag);
+        if (className) node.className = className;
+        if (text !== undefined) node.textContent = text;
+        return node;
+    };
+
+    const buildReviewCard = (review, index) => {
+        const card = el('div', 'card card--depoimento animate-on-scroll');
+
+        const stars = el('div', 'depoimento__stars');
+        stars.innerHTML = starsHtml(review.rating);
+        stars.setAttribute('aria-label', `${review.rating} de 5 estrelas`);
+
+        const text = review.text.length > MAX_REVIEW_CHARS
+            ? review.text.slice(0, MAX_REVIEW_CHARS).trimEnd() + '…'
+            : review.text;
+        const quote = el('p', 'depoimento__text', `"${text}"`);
+
+        const author = el('div', 'depoimento__author');
+        let avatar;
+        if (review.photo) {
+            avatar = el('img', 'depoimento__avatar');
+            avatar.src = review.photo;
+            avatar.alt = '';
+            avatar.loading = 'lazy';
+            avatar.referrerPolicy = 'no-referrer';
+            avatar.width = 44;
+            avatar.height = 44;
+        } else {
+            avatar = el('div', 'depoimento__avatar', initials(review.author));
+            avatar.style.backgroundColor = avatarColors[index % avatarColors.length];
+        }
+
+        const info = el('div');
+        const name = el('h4', 'depoimento__name');
+        if (review.authorUrl) {
+            const link = el('a', null, review.author);
+            link.href = review.authorUrl;
+            link.target = '_blank';
+            link.rel = 'noopener';
+            name.appendChild(link);
+        } else {
+            name.textContent = review.author;
+        }
+        const role = el('span', 'depoimento__role', review.time ? `${review.time} · Google` : 'Avaliação no Google');
+        info.append(name, role);
+        author.append(avatar, info);
+
+        card.append(stars, quote, author);
+        return card;
+    };
+
+    const renderGoogleSummary = ({ rating, total, url }) => {
+        const box = document.getElementById('google-rating');
+        if (!box || !rating) return;
+        document.getElementById('google-rating-value').textContent = rating.toFixed(1).replace('.', ',');
+        document.getElementById('google-rating-stars').innerHTML = starsHtml(rating);
+        document.getElementById('google-rating-count').textContent =
+            `${total} ${total === 1 ? 'avaliação' : 'avaliações'}`;
+        const link = document.getElementById('google-rating-link');
+        if (url) link.href = url; else link.remove();
+        box.hidden = false;
+    };
+
+    if (reviewsGrid) {
+        fetch('/api/reviews')
+            .then(res => (res.ok ? res.json() : Promise.reject(res.status)))
+            .then(data => {
+                renderGoogleSummary(data);
+                if (!data.reviews?.length) return;
+                reviewsGrid.replaceChildren(...data.reviews.map(buildReviewCard));
+                reviewsGrid.querySelectorAll('.animate-on-scroll').forEach(card => animObserver.observe(card));
+            })
+            .catch(() => { /* mantém os depoimentos estáticos */ });
+    }
+
+    // ==========================================
     // 7. EASTER EGG (Konami Code)
     // ==========================================
     const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];

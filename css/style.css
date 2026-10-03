@@ -262,6 +262,18 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .depoimento__avatar { display: grid; width: 44px; height: 44px; flex: 0 0 auto; place-items: center; border-radius: 50%; color: var(--white); font-size: .8rem; font-weight: 800; }
 .depoimento__name { font-size: .92rem; font-weight: 800; }
 .depoimento__role { color: var(--muted); font-size: .78rem; }
+img.depoimento__avatar { object-fit: cover; background: var(--line); }
+.depoimento__name a { color: inherit; text-decoration: none; }
+.depoimento__name a:hover { text-decoration: underline; }
+
+.google-rating { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px 20px; margin: -12px auto 32px; padding: 16px 24px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--white); box-shadow: var(--shadow-sm); width: fit-content; max-width: 100%; }
+.google-rating[hidden] { display: none; }
+.google-rating__score { display: flex; align-items: center; gap: 10px; }
+.google-rating__value { font-size: 1.8rem; font-weight: 800; letter-spacing: -.03em; line-height: 1; }
+.google-rating__stars { color: var(--yellow); font-size: .95rem; letter-spacing: 2px; }
+.google-rating__count { color: var(--muted); font-size: .9rem; }
+.google-rating__link { color: var(--ink); font-size: .88rem; font-weight: 700; text-decoration: none; border-bottom: 2px solid var(--green); }
+.google-rating__link i { font-size: .72rem; margin-left: 4px; }
 
 .contato { padding: clamp(76px, 9vw, 120px) 0; color: var(--white); background: var(--ink-2); }
 .contato__container { display: grid; gap: 48px; }

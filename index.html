@@ -278,8 +278,18 @@
                     <h2 class="section-title">O que dizem nossos clientes</h2>
                     <p class="section-subtitle">A satisfação de quem confia na EletroCL</p>
                 </div>
-                
-                <div class="depoimentos__grid">
+
+                <!-- Preenchido por js/main.js com dados de /api/reviews (Google) -->
+                <div class="google-rating" id="google-rating" hidden>
+                    <div class="google-rating__score">
+                        <span class="google-rating__value" id="google-rating-value"></span>
+                        <span class="google-rating__stars" id="google-rating-stars" aria-hidden="true"></span>
+                    </div>
+                    <p class="google-rating__count"><span id="google-rating-count"></span> no <strong>Google</strong></p>
+                    <a class="google-rating__link" id="google-rating-link" href="#" target="_blank" rel="noopener">Ver todas no Google <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                </div>
+
+                <div class="depoimentos__grid" id="depoimentos-grid">
                     <div class="card card--depoimento animate-on-scroll">
                         <div class="depoimento__stars">
                             <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
