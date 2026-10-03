@@ -24,17 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
         navbarMenu.classList.toggle('active');
         document.body.classList.toggle('menu-open', navbarMenu.classList.contains('active'));
         
-        // Transformar ícone hambúrguer em X
-        const icon = menuToggle.querySelector('i');
-        if (navbarMenu.classList.contains('active')) {
-            menuToggle.setAttribute('aria-label', 'Fechar menu');
-            icon.classList.remove('fa-bars');
-            icon.classList.add('fa-times');
-        } else {
-            menuToggle.setAttribute('aria-label', 'Abrir menu');
-            icon.classList.remove('fa-times');
-            icon.classList.add('fa-bars');
-        }
+        // O ícone (hambúrguer ↔ X) troca via CSS a partir de aria-expanded
+        menuToggle.setAttribute('aria-label', navbarMenu.classList.contains('active') ? 'Fechar menu' : 'Abrir menu');
     };
 
     if (menuToggle && navbarMenu) {
@@ -78,18 +69,93 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
     // 3. INTERSECTION OBSERVER (ANIMAÇÕES)
     // ==========================================
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     const animObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
+                entry.target.querySelectorAll(':scope > .reveal-clip').forEach(child => child.classList.add('visible'));
                 observer.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.15 });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
 
-    document.querySelectorAll('.animate-on-scroll').forEach(el => {
-        animObserver.observe(el);
+    // Itens de grids marcados com data-stagger entram em cascata
+    document.querySelectorAll('[data-stagger]').forEach(group => {
+        group.querySelectorAll(':scope > .animate-on-scroll').forEach((item, i) => {
+            item.style.setProperty('--d', `${i * 90}ms`);
+        });
     });
+
+    // Elementos com .reveal-clip começam 100% recortados e o observer não os
+    // detectaria; por isso quem é observado é o contêiner deles.
+    document.querySelectorAll('.animate-on-scroll').forEach(el => {
+        animObserver.observe(el.classList.contains('reveal-clip') ? el.parentElement : el);
+    });
+
+    // Linha que "desenha" a ligação entre as etapas do Como Funciona
+    const stepsGrid = document.querySelector('.steps__grid');
+    if (stepsGrid) {
+        new IntersectionObserver(([entry], observer) => {
+            if (entry.isIntersecting) {
+                stepsGrid.classList.add('is-drawn');
+                observer.disconnect();
+            }
+        }, { threshold: 0.35 }).observe(stepsGrid);
+    }
+
+    // ==========================================
+    // 3.1 BARRA DE PROGRESSO + MENU ATIVO
+    // ==========================================
+    const progressBar = document.getElementById('scroll-progress');
+    let progressTicking = false;
+    const updateProgress = () => {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        progressBar.style.transform = `scaleX(${max > 0 ? window.scrollY / max : 0})`;
+        progressTicking = false;
+    };
+    if (progressBar) {
+        window.addEventListener('scroll', () => {
+            if (!progressTicking) {
+                progressTicking = true;
+                requestAnimationFrame(updateProgress);
+            }
+        }, { passive: true });
+        updateProgress();
+    }
+
+    const navLinksById = new Map();
+    document.querySelectorAll('.navbar__link, .bottom-nav__link').forEach(link => {
+        const id = link.getAttribute('href')?.slice(1);
+        if (!id) return;
+        if (!navLinksById.has(id)) navLinksById.set(id, []);
+        navLinksById.get(id).push(link);
+    });
+    const spyObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            navLinksById.forEach(links => links.forEach(l => l.classList.remove('is-active')));
+            navLinksById.get(entry.target.id)?.forEach(l => l.classList.add('is-active'));
+        });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    navLinksById.forEach((_, id) => {
+        const section = document.getElementById(id);
+        if (section) spyObserver.observe(section);
+    });
+
+    // ==========================================
+    // 3.2 BRILHO QUE SEGUE O CURSOR NOS CARDS
+    // ==========================================
+    if (window.matchMedia('(hover: hover)').matches) {
+        document.querySelectorAll('.card--servico, .step').forEach(card => {
+            card.addEventListener('pointermove', (e) => {
+                const rect = card.getBoundingClientRect();
+                card.style.setProperty('--mx', `${e.clientX - rect.left}px`);
+                card.style.setProperty('--my', `${e.clientY - rect.top}px`);
+            });
+        });
+    }
 
     // ==========================================
     // 4. ANIMAÇÃO DE CONTADORES (STATS)
@@ -227,7 +293,16 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         resizeCanvas();
-        drawParticles();
+        if (prefersReducedMotion) {
+            drawParticles();
+            cancelAnimationFrame(animationFrameId);
+        } else {
+            // Só anima enquanto o hero está visível (economiza bateria/CPU)
+            new IntersectionObserver(([entry]) => {
+                cancelAnimationFrame(animationFrameId);
+                if (entry.isIntersecting) drawParticles();
+            }).observe(canvas);
+        }
 
         let resizeTimeout;
         window.addEventListener('resize', () => {
@@ -239,20 +314,75 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
-    // 6.1 AVALIAÇÕES DO GOOGLE (via /api/reviews)
+    // 6.1 AVALIAÇÕES DO GOOGLE (via Featurable)
     // ==========================================
-    // Se a API falhar ou não estiver configurada, os depoimentos estáticos
-    // do HTML continuam aparecendo.
+    // O Featurable (gratuito) sincroniza as avaliações do perfil do Google e
+    // as expõe em JSON. O ID do widget fica em data-featurable-id na seção
+    // #depoimentos. Sem ID, ou se a requisição falhar, os depoimentos
+    // estáticos do HTML continuam aparecendo.
+    const reviewsSection = document.getElementById('depoimentos');
     const reviewsGrid = document.getElementById('depoimentos-grid');
+    const featurableId = reviewsSection?.dataset.featurableId?.trim();
+    const reviewIcons = document.getElementById('review-icons')?.content;
     const avatarColors = ['#27ae60', '#e67e22', '#3498db', '#8e44ad', '#c0392b'];
+    const MAX_REVIEWS = 6;
     const MAX_REVIEW_CHARS = 280;
 
-    const starsHtml = (rating) => {
+    const cloneIcon = (selector) => reviewIcons?.querySelector(selector)?.cloneNode(true);
+
+    const fillStars = (container, rating) => {
         const full = Math.round(rating);
-        return '<i class="fa-solid fa-star"></i>'.repeat(full) + '<i class="fa-regular fa-star"></i>'.repeat(5 - full);
+        container.replaceChildren();
+        for (let i = 0; i < 5; i++) {
+            const star = cloneIcon('.icon--star');
+            if (!star) return;
+            if (i >= full) star.classList.add('is-empty');
+            container.appendChild(star);
+        }
     };
 
     const initials = (name) => name.split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0].toUpperCase()).join('');
+
+    // O Google anexa traduções automáticas ao texto; fica só com o original.
+    const cleanComment = (text = '') => {
+        if (text.includes('(Original)')) return text.split('(Original)').pop().trim();
+        return text.split('(Translated by Google)')[0].trim();
+    };
+
+    const relativeTime = (iso) => {
+        if (!iso) return '';
+        const days = Math.round((new Date(iso) - Date.now()) / 86400000);
+        const rtf = new Intl.RelativeTimeFormat('pt-BR', { numeric: 'auto' });
+        if (Math.abs(days) < 30) return rtf.format(days, 'day');
+        if (Math.abs(days) < 365) return rtf.format(Math.round(days / 30), 'month');
+        return rtf.format(Math.round(days / 365), 'year');
+    };
+
+    // Aceita as respostas v1 e v2 da API do Featurable.
+    const normalizeFeaturable = (data) => {
+        if (!data?.success) return null;
+        if (data.widget) {
+            const summary = data.widget.gbpLocationSummary ?? {};
+            return {
+                rating: summary.rating,
+                total: summary.reviewsCount,
+                url: summary.writeAReviewUri,
+                reviews: (data.widget.reviews ?? []).map(r => ({
+                    author: r.author?.name, photo: r.author?.photoUrl || r.author?.avatarUrl,
+                    rating: r.rating?.value ?? 0, text: r.text, date: r.createdAt,
+                })),
+            };
+        }
+        return {
+            rating: data.averageRating,
+            total: data.totalReviewCount,
+            url: data.profileUrl,
+            reviews: (data.reviews ?? []).map(r => ({
+                author: r.reviewer?.isAnonymous ? null : r.reviewer?.displayName, photo: r.reviewer?.profilePhotoUrl,
+                rating: r.starRating ?? 0, text: r.comment, date: r.createTime,
+            })),
+        };
+    };
 
     const el = (tag, className, text) => {
         const node = document.createElement(tag);
@@ -263,9 +393,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const buildReviewCard = (review, index) => {
         const card = el('div', 'card card--depoimento animate-on-scroll');
+        card.style.setProperty('--d', `${index * 90}ms`);
+
+        const quoteIcon = cloneIcon('.depoimento__quote');
+        if (quoteIcon) card.appendChild(quoteIcon);
 
         const stars = el('div', 'depoimento__stars');
-        stars.innerHTML = starsHtml(review.rating);
+        fillStars(stars, review.rating);
         stars.setAttribute('aria-label', `${review.rating} de 5 estrelas`);
 
         const text = review.text.length > MAX_REVIEW_CHARS
@@ -273,6 +407,7 @@ document.addEventListener('DOMContentLoaded', () => {
             : review.text;
         const quote = el('p', 'depoimento__text', `"${text}"`);
 
+        const name = review.author || 'Cliente Google';
         const author = el('div', 'depoimento__author');
         let avatar;
         if (review.photo) {
@@ -284,23 +419,16 @@ document.addEventListener('DOMContentLoaded', () => {
             avatar.width = 44;
             avatar.height = 44;
         } else {
-            avatar = el('div', 'depoimento__avatar', initials(review.author));
+            avatar = el('div', 'depoimento__avatar', initials(name));
             avatar.style.backgroundColor = avatarColors[index % avatarColors.length];
         }
 
         const info = el('div');
-        const name = el('h4', 'depoimento__name');
-        if (review.authorUrl) {
-            const link = el('a', null, review.author);
-            link.href = review.authorUrl;
-            link.target = '_blank';
-            link.rel = 'noopener';
-            name.appendChild(link);
-        } else {
-            name.textContent = review.author;
-        }
-        const role = el('span', 'depoimento__role', review.time ? `${review.time} · Google` : 'Avaliação no Google');
-        info.append(name, role);
+        const when = relativeTime(review.date);
+        info.append(
+            el('h4', 'depoimento__name', name),
+            el('span', 'depoimento__role', when ? `${when} · Google` : 'Avaliação no Google'),
+        );
         author.append(avatar, info);
 
         card.append(stars, quote, author);
@@ -311,7 +439,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const box = document.getElementById('google-rating');
         if (!box || !rating) return;
         document.getElementById('google-rating-value').textContent = rating.toFixed(1).replace('.', ',');
-        document.getElementById('google-rating-stars').innerHTML = starsHtml(rating);
+        fillStars(document.getElementById('google-rating-stars'), rating);
         document.getElementById('google-rating-count').textContent =
             `${total} ${total === 1 ? 'avaliação' : 'avaliações'}`;
         const link = document.getElementById('google-rating-link');
@@ -319,13 +447,20 @@ document.addEventListener('DOMContentLoaded', () => {
         box.hidden = false;
     };
 
-    if (reviewsGrid) {
-        fetch('/api/reviews')
+    if (featurableId && reviewsGrid) {
+        fetch(`https://api.featurable.com/v1/widgets/${encodeURIComponent(featurableId)}`)
             .then(res => (res.ok ? res.json() : Promise.reject(res.status)))
+            .then(normalizeFeaturable)
             .then(data => {
+                if (!data) return;
                 renderGoogleSummary(data);
-                if (!data.reviews?.length) return;
-                reviewsGrid.replaceChildren(...data.reviews.map(buildReviewCard));
+                const reviews = data.reviews
+                    .map(r => ({ ...r, text: cleanComment(r.text) }))
+                    .filter(r => r.text)
+                    .sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0))
+                    .slice(0, MAX_REVIEWS);
+                if (!reviews.length) return;
+                reviewsGrid.replaceChildren(...reviews.map(buildReviewCard));
                 reviewsGrid.querySelectorAll('.animate-on-scroll').forEach(card => animObserver.observe(card));
             })
             .catch(() => { /* mantém os depoimentos estáticos */ });

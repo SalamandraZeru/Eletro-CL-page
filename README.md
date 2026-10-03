@@ -25,7 +25,7 @@ No frameworks, no backend. Kept it as simple as possible.
 
 ## Project Structure
 
-All the client-side logic is dumped into `js/main.js`. It handles the mobile menu, smooth scrolling, lazy loading, and a Konami Code easter egg. Since the site has no complex state, I kept it in a single file to avoid over-engineering.
+All the client-side logic is dumped into `js/main.js`. It handles the mobile menu, smooth scrolling, scroll animations, lazy loading, Google reviews, and a Konami Code easter egg. Since the site has no complex state, I kept it in a single file to avoid over-engineering.
 
 `public/_headers` handles Cloudflare security policies (CSP, X-Frame-Options, etc). If you add new external tools like Google Analytics later, remember to update the CSP here.
 
@@ -57,21 +57,22 @@ Connect the repo and use these settings:
 * Build command: `npm run build`
 * Output directory: `dist`
 
-## Google Reviews (auto-update)
+## Google Reviews (auto-update, free)
 
-The "O que dizem nossos clientes" section pulls the shop's rating and reviews from Google via a Cloudflare Pages Function (`functions/api/reviews.js` → `GET /api/reviews`). The response is cached at the edge for 6 hours, so new Google reviews show up on the site on their own. If the API isn't configured or fails, the static testimonials in `index.html` are shown instead.
+The "O que dizem nossos clientes" section shows the shop's real Google reviews through [Featurable](https://featurable.com) — a free service that syncs the Google Business Profile reviews and exposes them as JSON. No Google API key, no billing account, no third-party script: `js/main.js` fetches the JSON and renders it with the site's own card design. New reviews show up on their own (Featurable re-syncs periodically).
 
-Setup:
+Setup (one time, ~5 minutes):
 
-1. In Google Cloud, enable **Places API (New)** on a project with billing and create an API key. Restrict it to the Places API (New) only.
-2. Find the shop's Place ID with Google's [Place ID Finder](https://developers.google.com/maps/documentation/places/web-service/place-id).
-3. In Cloudflare Pages → Settings → Variables and Secrets, add `GOOGLE_PLACES_API_KEY` (as a secret) and `GOOGLE_PLACE_ID`, then redeploy.
+1. Create a free account at featurable.com and connect the EletroCL Google Business Profile (the shop owner's Google account is needed).
+2. Create a widget, then go to **Embed → API** and copy the widget ID.
+3. Paste it in `index.html` → `<section id="depoimentos" ... data-featurable-id="PASTE-HERE">` and deploy.
 
-Notes:
+If the ID is empty or the request fails, the static testimonials in `index.html` are shown instead. Up to 6 reviews with text are displayed, newest first. The CSP in `public/_headers` already allows `api.featurable.com` and Google profile photos.
 
-* Google returns at most 5 reviews, picked by Google's "most relevant" order — you can't choose which ones show.
-* Reviews use the "Place Details Enterprise + Atmosphere" SKU (1,000 free calls/month). The 6h cache keeps usage far below that.
-* `vite dev` doesn't run Pages Functions, so locally you'll see the static fallback. Use `npx wrangler pages dev dist` with a `.dev.vars` file to test the real thing.
+## Icons & animations
+
+* Icons are inline SVGs injected at build time: `<i data-icon="wrench"></i>` uses [Lucide](https://lucide.dev/icons) and `<i data-icon="si:whatsapp"></i>` uses [Simple Icons](https://simpleicons.org) (brand logos). See `scripts/icons.js` and the plugin in `vite.config.ts`. No icon font or CDN is loaded.
+* Scroll reveals use `.animate-on-scroll` (+ optional `reveal-left`, `reveal-zoom`, `reveal-clip`); children of a `[data-stagger]` container animate in sequence. Everything respects `prefers-reduced-motion`.
 
 ## Client Info (Verify before launch)
 
