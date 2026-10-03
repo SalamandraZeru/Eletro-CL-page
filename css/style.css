@@ -305,16 +305,21 @@ img.depoimento__avatar { object-fit: cover; background: var(--line); }
 .depoimento__name a:hover { text-decoration: underline; }
 
 .google-rating { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px 20px; margin: -12px auto 32px; padding: 16px 24px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--white); box-shadow: var(--shadow-sm); width: fit-content; max-width: 100%; }
-.google-rating[hidden] { display: none; }
 .google-rating__score { display: flex; align-items: center; gap: 10px; }
 .google-rating__value { font-size: 1.8rem; font-weight: 800; letter-spacing: -.03em; line-height: 1; }
 .google-rating__count { color: var(--muted); font-size: .9rem; }
 .google-rating__link { color: var(--ink); font-size: .88rem; font-weight: 700; text-decoration: none; border-bottom: 2px solid var(--green); }
 .google-rating__link { display: inline-flex; align-items: center; gap: 4px; }
 .google-rating__link .icon { transition: transform var(--ease); }
-.google-rating__link:hover .icon { transform: translate(2px, -2px); }
+.google-rating:hover .google-rating__link .icon { transform: translate(2px, -2px); }
 .google-rating__logo { display: grid; width: 40px; height: 40px; place-items: center; border-radius: 12px; color: #4285f4; background: #eef3fe; font-size: 1.25rem; }
-.google-rating:not([hidden]) { animation: popIn .7s var(--ease-out) both; }
+.google-rating { color: inherit; }
+.google-rating:hover { border-color: rgba(66,133,244,.35); box-shadow: var(--shadow-lg); transform: translateY(-3px); }
+.card--depoimento { color: inherit; cursor: pointer; }
+.depoimento__more { display: inline-flex; align-items: center; gap: 4px; margin-top: 18px; color: var(--green-deep); font-size: .8rem; font-weight: 800; opacity: .75; transition: opacity var(--ease); }
+.depoimento__more .icon { transition: transform var(--ease); }
+.card--depoimento:hover .depoimento__more { opacity: 1; }
+.card--depoimento:hover .depoimento__more .icon { transform: translate(2px, -2px); }
 
 .contato { padding: clamp(76px, 9vw, 120px) 0; color: var(--white); background: var(--ink-2); }
 .contato__container { display: grid; gap: 48px; }

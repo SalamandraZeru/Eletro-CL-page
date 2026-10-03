@@ -25,7 +25,7 @@ No frameworks, no backend. Kept it as simple as possible.
 
 ## Project Structure
 
-All the client-side logic is dumped into `js/main.js`. It handles the mobile menu, smooth scrolling, scroll animations, lazy loading, Google reviews, and a Konami Code easter egg. Since the site has no complex state, I kept it in a single file to avoid over-engineering.
+All the client-side logic is dumped into `js/main.js`. It handles the mobile menu, smooth scrolling, scroll animations, lazy loading, and a Konami Code easter egg. Since the site has no complex state, I kept it in a single file to avoid over-engineering.
 
 `public/_headers` handles Cloudflare security policies (CSP, X-Frame-Options, etc). If you add new external tools like Google Analytics later, remember to update the CSP here.
 
@@ -57,17 +57,15 @@ Connect the repo and use these settings:
 * Build command: `npm run build`
 * Output directory: `dist`
 
-## Google Reviews (auto-update, free)
+## Google Reviews (manual)
 
-The "O que dizem nossos clientes" section shows the shop's real Google reviews through [Featurable](https://featurable.com) — a free service that syncs the Google Business Profile reviews and exposes them as JSON. No Google API key, no billing account, no third-party script: `js/main.js` fetches the JSON and renders it with the site's own card design. New reviews show up on their own (Featurable re-syncs periodically).
+The reviews in "O que dizem nossos clientes" are static cards in `index.html`, copied by hand from the shop's Google Maps page. The summary box and every card link to the shop on Google Maps, so visitors can read all reviews there.
 
-Setup (one time, ~5 minutes):
+To update:
 
-1. Create a free account at featurable.com and connect the EletroCL Google Business Profile (the shop owner's Google account is needed).
-2. Create a widget, then go to **Embed → API** and copy the widget ID.
-3. Paste it in `index.html` → `<section id="depoimentos" ... data-featurable-id="PASTE-HERE">` and deploy.
-
-If the ID is empty or the request fails, the static testimonials in `index.html` are shown instead. Up to 6 reviews with text are displayed, newest first. The CSP in `public/_headers` already allows `api.featurable.com` and Google profile photos.
+1. Open the shop on Google Maps → **Avaliações**, sort by "Mais recentes", and copy the text, author name, and star count of the reviews you want.
+2. In `index.html`, edit each `.card--depoimento` (text, name, initials in `.depoimento__avatar`, stars). Use `<i data-icon="star"></i>` for a filled star and `<i data-icon="star" class="is-empty"></i>` for an empty one; update the `aria-label` ("X de 5 estrelas").
+3. The summary box and each card link to the shop's Google share link (`https://share.google/1lcrswUaMSRGksJnh`). If it ever changes, search-and-replace it in `index.html`.
 
 ## Icons & animations
 

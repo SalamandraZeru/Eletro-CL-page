@@ -296,8 +296,8 @@
         </section>
 
         <!-- SECTION: Depoimentos -->
-        <!-- Para mostrar as avaliações do Google: cole o ID do widget do Featurable em data-featurable-id (ver README) -->
-        <section id="depoimentos" class="depoimentos section-padding" data-featurable-id="">
+        <!-- Avaliações copiadas do Google Maps. O link "Ver no Google" se repete no resumo e em cada card (ver README) -->
+        <section id="depoimentos" class="depoimentos section-padding">
             <div class="container">
                 <div class="section-header animate-on-scroll">
                     <span class="eyebrow"><i data-icon="star"></i> Avaliações</span>
@@ -305,19 +305,14 @@
                     <p class="section-subtitle">A satisfação de quem confia na EletroCL</p>
                 </div>
 
-                <!-- Preenchido por js/main.js com as avaliações do Google (Featurable) -->
-                <div class="google-rating" id="google-rating" hidden>
+                <a class="google-rating animate-on-scroll" href="https://share.google/1lcrswUaMSRGksJnh" target="_blank" rel="noopener noreferrer">
                     <span class="google-rating__logo"><i data-icon="si:google"></i></span>
-                    <div class="google-rating__score">
-                        <span class="google-rating__value" id="google-rating-value"></span>
-                        <span class="google-rating__stars" id="google-rating-stars" aria-hidden="true"></span>
-                    </div>
-                    <p class="google-rating__count"><span id="google-rating-count"></span> no <strong>Google</strong></p>
-                    <a class="google-rating__link" id="google-rating-link" href="#" target="_blank" rel="noopener">Ver todas <i data-icon="arrow-up-right"></i></a>
-                </div>
+                    <span class="google-rating__count">Veja o que dizem sobre nós no <strong>Google</strong></span>
+                    <span class="google-rating__link">Ver todas <i data-icon="arrow-up-right"></i></span>
+                </a>
 
-                <div class="depoimentos__grid" id="depoimentos-grid" data-stagger>
-                    <div class="card card--depoimento animate-on-scroll">
+                <div class="depoimentos__grid" data-stagger>
+                    <a class="card card--depoimento animate-on-scroll" href="https://share.google/1lcrswUaMSRGksJnh" target="_blank" rel="noopener noreferrer">
                         <i data-icon="quote" class="depoimento__quote"></i>
                         <div class="depoimento__stars" aria-label="5 de 5 estrelas">
                             <i data-icon="star"></i><i data-icon="star"></i><i data-icon="star"></i><i data-icon="star"></i><i data-icon="star"></i>
@@ -330,9 +325,10 @@
                                 <span class="depoimento__role">Cliente local</span>
                             </div>
                         </div>
-                    </div>
+                        <span class="depoimento__more">Ver no Google <i data-icon="arrow-up-right"></i></span>
+                    </a>
                     
-                    <div class="card card--depoimento animate-on-scroll">
+                    <a class="card card--depoimento animate-on-scroll" href="https://share.google/1lcrswUaMSRGksJnh" target="_blank" rel="noopener noreferrer">
                         <i data-icon="quote" class="depoimento__quote"></i>
                         <div class="depoimento__stars" aria-label="5 de 5 estrelas">
                             <i data-icon="star"></i><i data-icon="star"></i><i data-icon="star"></i><i data-icon="star"></i><i data-icon="star"></i>
@@ -345,9 +341,10 @@
                                 <span class="depoimento__role">Jardineiro</span>
                             </div>
                         </div>
-                    </div>
+                        <span class="depoimento__more">Ver no Google <i data-icon="arrow-up-right"></i></span>
+                    </a>
                     
-                    <div class="card card--depoimento animate-on-scroll">
+                    <a class="card card--depoimento animate-on-scroll" href="https://share.google/1lcrswUaMSRGksJnh" target="_blank" rel="noopener noreferrer">
                         <i data-icon="quote" class="depoimento__quote"></i>
                         <div class="depoimento__stars" aria-label="5 de 5 estrelas">
                             <i data-icon="star"></i><i data-icon="star"></i><i data-icon="star"></i><i data-icon="star"></i><i data-icon="star"></i>
@@ -360,14 +357,10 @@
                                 <span class="depoimento__role">Cliente local</span>
                             </div>
                         </div>
-                    </div>
+                        <span class="depoimento__more">Ver no Google <i data-icon="arrow-up-right"></i></span>
+                    </a>
                 </div>
 
-                <!-- Ícones usados pelo JS ao montar os cards do Google -->
-                <template id="review-icons">
-                    <i data-icon="star"></i>
-                    <i data-icon="quote" class="depoimento__quote"></i>
-                </template>
             </div>
         </section>
 
