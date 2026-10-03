@@ -57,11 +57,6 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="./assets/logo.png">
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-    
     <!-- Preload Hero Poster -->
     <link rel="preload" as="image" href="./assets/hero-poster.jpg" fetchpriority="high">
     
@@ -209,23 +204,24 @@
         <section id="marcas" class="marcas" aria-label="Marcas atendidas">
             <p class="marcas__label">Trabalhamos com as principais marcas</p>
             <div class="marcas__carousel">
-                <div class="marcas__track">
-                    <!-- Duplicated for infinite effect -->
-                    <img src="./assets/makita-logo.png" alt="Makita" class="marcas__img" loading="lazy">
-                    <img src="./assets/bosch-logo.png" alt="Bosch" class="marcas__img" loading="lazy">
-                    <img src="./assets/dewalt-logo.png" alt="DeWalt" class="marcas__img" loading="lazy">
-                    <img src="./assets/walita-logo.png" alt="Walita" class="marcas__img" loading="lazy">
-                    <img src="./assets/britania-logo.png" alt="Britânia" class="marcas__img" loading="lazy">
-                    <img src="./assets/philips-logo.png" alt="Philips" class="marcas__img" loading="lazy">
-                    <img src="./assets/arno-logo.png" alt="Arno" class="marcas__img" loading="lazy">
-                    <!-- Clone -->
-                    <img src="./assets/makita-logo.png" alt="" aria-hidden="true" class="marcas__img" loading="lazy">
-                    <img src="./assets/bosch-logo.png" alt="" aria-hidden="true" class="marcas__img" loading="lazy">
-                    <img src="./assets/dewalt-logo.png" alt="" aria-hidden="true" class="marcas__img" loading="lazy">
-                    <img src="./assets/walita-logo.png" alt="" aria-hidden="true" class="marcas__img" loading="lazy">
-                    <img src="./assets/britania-logo.png" alt="" aria-hidden="true" class="marcas__img" loading="lazy">
-                    <img src="./assets/philips-logo.png" alt="" aria-hidden="true" class="marcas__img" loading="lazy">
-                    <img src="./assets/arno-logo.png" alt="" aria-hidden="true" class="marcas__img" loading="lazy">
+                <!-- Dois grupos idênticos: cada um ocupa no mínimo a largura da tela, então o loop nunca deixa buraco -->
+                <div class="marcas__group">
+                    <img src="./assets/makita-logo.png" alt="Makita" class="marcas__img marcas__img--makita" loading="lazy">
+                    <img src="./assets/bosch-logo.png" alt="Bosch" class="marcas__img marcas__img--bosch" loading="lazy">
+                    <img src="./assets/dewalt-logo.png" alt="DeWalt" class="marcas__img marcas__img--dewalt" loading="lazy">
+                    <img src="./assets/walita-logo.png" alt="Walita" class="marcas__img marcas__img--walita" loading="lazy">
+                    <img src="./assets/britania-logo-dark.png" alt="Britânia" class="marcas__img marcas__img--britania" loading="lazy">
+                    <img src="./assets/philips-logo.png" alt="Philips" class="marcas__img marcas__img--philips" loading="lazy">
+                    <img src="./assets/arno-logo.png" alt="Arno" class="marcas__img marcas__img--arno" loading="lazy">
+                </div>
+                <div class="marcas__group" aria-hidden="true">
+                    <img src="./assets/makita-logo.png" alt="" class="marcas__img marcas__img--makita" loading="lazy">
+                    <img src="./assets/bosch-logo.png" alt="" class="marcas__img marcas__img--bosch" loading="lazy">
+                    <img src="./assets/dewalt-logo.png" alt="" class="marcas__img marcas__img--dewalt" loading="lazy">
+                    <img src="./assets/walita-logo.png" alt="" class="marcas__img marcas__img--walita" loading="lazy">
+                    <img src="./assets/britania-logo-dark.png" alt="" class="marcas__img marcas__img--britania" loading="lazy">
+                    <img src="./assets/philips-logo.png" alt="" class="marcas__img marcas__img--philips" loading="lazy">
+                    <img src="./assets/arno-logo.png" alt="" class="marcas__img marcas__img--arno" loading="lazy">
                 </div>
             </div>
         </section>
@@ -431,18 +427,29 @@
                     </a>
                 </div>
                 
-                <div class="contato__map animate-on-scroll reveal-zoom">
-                    <iframe 
-                        src="https://maps.google.com/maps?q=R.%20do%20Mercado,%20101%20-%20Centro,%20Passos%20-%20MG,%2037900-076&t=&z=15&ie=UTF8&iwloc=&output=embed"
-                        width="100%" 
-                        height="100%" 
-                        style="border:0;" 
-                        allowfullscreen="" 
-                        loading="lazy" 
-                        referrerpolicy="no-referrer-when-downgrade"
-                        title="Mapa de Localização EletroCL">
-                    </iframe>
+                <!-- O mapa do Google só é carregado com consentimento (js/consent.js) -->
+                <div class="contato__map animate-on-scroll reveal-zoom" id="map-container">
+                    <div class="map-consent">
+                        <span class="map-consent__icon"><i data-icon="map-pin"></i></span>
+                        <p class="map-consent__title">R. do Mercado, 101 - Centro, Passos - MG</p>
+                        <p class="map-consent__text">O mapa é fornecido pelo Google e pode usar cookies. Ele só é carregado com a sua permissão.</p>
+                        <div class="map-consent__actions">
+                            <button type="button" class="btn btn--primary" data-consent="accept-map"><i data-icon="map"></i> Carregar mapa</button>
+                            <a class="btn btn--ghost" href="https://www.google.com/maps/search/?api=1&amp;query=R.%20do%20Mercado%2C%20101%20-%20Centro%2C%20Passos%20-%20MG" target="_blank" rel="noopener noreferrer">Abrir no Google Maps <i data-icon="arrow-up-right"></i></a>
+                        </div>
+                    </div>
                 </div>
+                <template id="map-consent-template">
+                    <div class="map-consent">
+                        <span class="map-consent__icon"><i data-icon="map-pin"></i></span>
+                        <p class="map-consent__title">R. do Mercado, 101 - Centro, Passos - MG</p>
+                        <p class="map-consent__text">O mapa é fornecido pelo Google e pode usar cookies. Ele só é carregado com a sua permissão.</p>
+                        <div class="map-consent__actions">
+                            <button type="button" class="btn btn--primary" data-consent="accept-map"><i data-icon="map"></i> Carregar mapa</button>
+                            <a class="btn btn--ghost" href="https://www.google.com/maps/search/?api=1&amp;query=R.%20do%20Mercado%2C%20101%20-%20Centro%2C%20Passos%20-%20MG" target="_blank" rel="noopener noreferrer">Abrir no Google Maps <i data-icon="arrow-up-right"></i></a>
+                        </div>
+                    </div>
+                </template>
             </div>
         </section>
     </main>
@@ -476,6 +483,10 @@
         <div class="footer__bottom">
             <div class="container">
                 <p>&copy; <span id="current-year">2026</span> EletroCL. Todos os direitos reservados.</p>
+                <nav class="footer__legal" aria-label="Privacidade">
+                    <a href="/politica-de-privacidade">Política de Privacidade</a>
+                    <a href="#" data-consent="open">Preferências de cookies</a>
+                </nav>
                 <a class="footer__noctem" href="https://noctem.agency" target="_blank" rel="noopener noreferrer" aria-label="Noctem Technology — abrir noctem.agency">
                     <span>Desenvolvido por: Noctem Technology</span>
                     <img src="/assets/noctem-logo.png" alt="Noctem" width="36" height="36" loading="lazy">
@@ -508,6 +519,19 @@
             <span>Contato</span>
         </a>
     </nav>
+
+    <!-- SECTION: Banner de cookies (LGPD) -->
+    <div class="cookie-banner" id="cookie-banner" role="region" aria-label="Aviso de cookies" hidden>
+        <span class="cookie-banner__icon"><i data-icon="cookie"></i></span>
+        <div class="cookie-banner__text">
+            <strong>Sua privacidade importa</strong>
+            <p>Este site não usa cookies de rastreamento nem publicidade. Com a sua permissão, carregamos o mapa do Google, que pode usar cookies do Google. Saiba mais na <a href="/politica-de-privacidade">Política de Privacidade</a>.</p>
+        </div>
+        <div class="cookie-banner__actions">
+            <button type="button" class="btn btn--ghost" data-consent="reject">Recusar</button>
+            <button type="button" class="btn btn--primary" data-consent="accept">Aceitar</button>
+        </div>
+    </div>
 
     <!-- Scripts -->
     <script type="module" src="/js/main.js"></script>

@@ -1,4 +1,8 @@
+import { initConsent } from './consent.js';
+
 document.addEventListener('DOMContentLoaded', () => {
+    initConsent();
+
     // ==========================================
     // 1. MENU MOBILE E SCROLL DA NAVBAR
     // ==========================================
@@ -126,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const navLinksById = new Map();
-    document.querySelectorAll('.navbar__link, .bottom-nav__link').forEach(link => {
+    document.querySelectorAll('.navbar__link, .bottom-nav__link, .legal__toc a').forEach(link => {
         const id = link.getAttribute('href')?.slice(1);
         if (!id) return;
         if (!navLinksById.has(id)) navLinksById.set(id, []);

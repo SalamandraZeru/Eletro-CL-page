@@ -67,6 +67,13 @@ To update:
 2. In `index.html`, edit each `.card--depoimento` (text, name, initials in `.depoimento__avatar`, stars). Use `<i data-icon="star"></i>` for a filled star and `<i data-icon="star" class="is-empty"></i>` for an empty one; update the `aria-label` ("X de 5 estrelas").
 3. The summary box and each card link to the shop's Google share link (`https://share.google/1lcrswUaMSRGksJnh`). If it ever changes, search-and-replace it in `index.html`.
 
+## Privacy (LGPD)
+
+* **Privacy policy:** `politica-de-privacidade.html` (served at `/politica-de-privacidade`), built as a second Vite entry in `vite.config.ts`. Update the "Última atualização" date whenever it changes.
+* **Cookie banner:** `js/consent.js`. The site loads no third-party content by default; the Google Maps embed only loads after consent (banner "Aceitar" or the "Carregar mapa" button). The choice is stored in `localStorage` (`eletrocl-consent`) and can be changed via "Preferências de cookies" in the footer. Bump `CONSENT_VERSION` to ask everyone again (e.g. after adding analytics).
+* **Fonts** are self-hosted via `@fontsource-variable/plus-jakarta-sans` (no Google Fonts request).
+* If you add any new third-party tool (analytics, chat widget, pixel…), it must load only after consent, be listed in the policy, and be allowed in the CSP (`public/_headers`).
+
 ## Icons & animations
 
 * Icons are inline SVGs injected at build time: `<i data-icon="wrench"></i>` uses [Lucide](https://lucide.dev/icons) and `<i data-icon="si:whatsapp"></i>` uses [Simple Icons](https://simpleicons.org) (brand logos). See `scripts/icons.js` and the plugin in `vite.config.ts`. No icon font or CDN is loaded.
@@ -91,6 +98,7 @@ Make sure these match the actual shop data before going live:
 * [ ] Checked responsiveness on mobile and desktop
 * [ ] No console errors or 404 assets
 * [ ] JSON-LD block in `index.html` matches final client data
+* [ ] Razão social and CNPJ in the privacy policy confirmed by the client
 
 ---
 
