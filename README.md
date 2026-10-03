@@ -65,7 +65,8 @@ To update:
 
 1. Open the shop on Google Maps → **Avaliações**, sort by "Mais recentes", and copy the text, author name, and star count of the reviews you want.
 2. In `index.html`, edit each `.card--depoimento` (text, name, initials in `.depoimento__avatar`, stars). Use `<i data-icon="star"></i>` for a filled star and `<i data-icon="star" class="is-empty"></i>` for an empty one; update the `aria-label` ("X de 5 estrelas").
-3. The summary box and each card link to the shop's Google share link (`https://share.google/1lcrswUaMSRGksJnh`). If it ever changes, search-and-replace it in `index.html`.
+3. The rating and review count in the summary box (`.google-rating`, currently 4,1 · 19 avaliações) are also copied by hand from the Google profile — update them when they change.
+4. The summary box and each card link to the shop's Google share link (`https://share.google/1lcrswUaMSRGksJnh`). If it ever changes, search-and-replace it in `index.html`.
 
 ## Privacy (LGPD)
 
